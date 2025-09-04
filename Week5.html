@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Learning Playground</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            line-height: 1.6; 
+            color: #333; 
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        header { text-align: center; padding: 20px; margin-bottom: 20px; color: white; }
+        h1 { font-size: 2.2rem; margin-bottom: 10px; }
+        h2 { color: #6e8efb; margin-bottom: 15px; border-bottom: 2px solid #6e8efb; padding-bottom: 5px; }
+        .section { 
+            background: white; 
+            border-radius: 10px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .code-block {
+            background: #2d2d2d; 
+            color: #f8f8f2; 
+            padding: 15px; 
+            border-radius: 5px; 
+            margin: 15px 0; 
+            overflow-x: auto; 
+            font-family: monospace;
+        }
+        .interactive-area { background: #e9ecef; padding: 15px; border-radius: 8px; margin: 15px 0; }
+        button, input { padding: 10px; margin: 5px; border-radius: 5px; }
+        button { 
+            background: #6e8efb; 
+            color: white; 
+            border: none; 
+            cursor: pointer; 
+            transition: background 0.3s;
+        }
+        button:hover { background: #5a7de0; }
+        input { border: 1px solid #ddd; width: 200px; }
+        .output { 
+            background: #fff; 
+            padding: 15px; 
+            border-radius: 5px; 
+            margin: 15px 0; 
+            border-left: 3px solid #6e8efb;
+        }
+        footer { text-align: center; margin-top: 30px; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>JavaScript Learning Playground</h1>
+            <p>Learn JS fundamentals through interactive examples</p>
+        </header>
+
+        <div class="section">
+            <h2>🎯 Part 1: JavaScript Basics</h2>
+            <div class="interactive-area">
+                <h3>Variables & Conditionals</h3>
+                <input type="text" id="nameInput" placeholder="Enter your name">
+                <input type="number" id="ageInput" placeholder="Enter your age">
+                <button onclick="demoVariables()">Run Example</button>
+                <div class="output" id="variablesOutput"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>❤️ Part 2: JavaScript Functions</h2>
+            <div class="interactive-area">
+                <h3>Function Examples</h3>
+                <input type="number" id="widthInput" placeholder="Width">
+                <input type="number" id="heightInput" placeholder="Height">
+                <button onclick="calculateAreaDemo()">Calculate Area</button>
+                <div class="output" id="areaOutput"></div>
+                
+                <input type="text" id="formatName" placeholder="Your name">
+                <input type="number" id="formatAge" placeholder="Your age">
+                <button onclick="formatWelcomeDemo()">Format Welcome</button>
+                <div class="output" id="welcomeOutput"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔁 Part 3: JavaScript Loops</h2>
+            <div class="interactive-area">
+                <h3>Loop Examples</h3>
+                <button onclick="runForLoop()">Run For Loop</button>
+                <button onclick="runWhileLoop()">Run While Loop</button>
+                <button onclick="runForEach()">Run forEach</button>
+                <div class="output" id="loopOutput"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🌐 Part 4: DOM Manipulation</h2>
+            <div class="interactive-area">
+                <h3>DOM Examples</h3>
+                <button onclick="changeText()">Change Text</button>
+                <button onclick="toggleHighlight()">Toggle Highlight</button>
+                <button onclick="addNewElement()">Add New Element</button>
+                
+                <div class="output">
+                    <p id="demoText">This is the original text.</p>
+                    <div id="demoDiv">This div will be highlighted.</div>
+                    <div id="newElements"></div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>JavaScript Learning Playground &copy; 2023</p>
+        </footer>
+    </div>
+
+    <script>
+        // Part 1: JavaScript Basics
+        let userName = "John";
+        const userAge = 30;
+        let isStudent = true;
+        let courses = ["Math", "Science", "History"];
+        
+        function demoVariables() {
+            let name = document.getElementById('nameInput').value || userName;
+            let age = document.getElementById('ageInput').value || userAge;
+            let nextYearAge = parseInt(age) + 1;
+            
+            document.getElementById('variablesOutput').innerHTML = `
+                <p>Hello, ${name}! You are ${age} years old. Next year you'll be ${nextYearAge}.</p>
+                <p>Is student: ${isStudent}</p>
+                <p>Courses: ${courses.join(', ')}</p>
+            `;
+        }
+        
+        // Part 2: JavaScript Functions
+        function calculateArea(width, height) {
+            return width * height;
+        }
+        
+        const formatWelcome = function(name, age) {
+            return `Welcome ${name}, you are ${age} years old!`;
+        };
+        
+        function calculateAreaDemo() {
+            let width = document.getElementById('widthInput').value;
+            let height = document.getElementById('heightInput').value;
+            
+            if (width && height) {
+                let area = calculateArea(parseInt(width), parseInt(height));
+                document.getElementById('areaOutput').textContent = `The area is: ${area}`;
+            } else {
+                document.getElementById('areaOutput').textContent = 'Please enter both width and height.';
+            }
+        }
+        
+        function formatWelcomeDemo() {
+            let name = document.getElementById('formatName').value;
+            let age = document.getElementById('formatAge').value;
+            
+            if (name && age) {
+                let welcomeMsg = formatWelcome(name, age);
+                document.getElementById('welcomeOutput').textContent = welcomeMsg;
+            } else {
+                document.getElementById('welcomeOutput').textContent = 'Please enter both name and age.';
+            }
+        }
+        
+        // Part 3: JavaScript Loops
+        function runForLoop() {
+            let output = '<p>Courses:</p><ul>';
+            for (let i = 0; i < courses.length; i++) {
+                output += `<li>Course ${i+1}: ${courses[i]}</li>`;
+            }
+            output += '</ul>';
+            document.getElementById('loopOutput').innerHTML = output;
+        }
+        
+        function runWhileLoop() {
+            let output = '<p>Countdown:</p>';
+            let count = 5;
+            while (count > 0) {
+                output += `<p>Count: ${count}</p>`;
+                count--;
+            }
+            output += '<p>Liftoff! 🚀</p>';
+            document.getElementById('loopOutput').innerHTML = output;
+        }
+        
+        function runForEach() {
+            let fruits = ["Apple", "Banana", "Orange", "Mango"];
+            let output = '<p>Fruits:</p><ul>';
+            fruits.forEach(function(fruit, index) {
+                output += `<li>Fruit ${index + 1}: ${fruit}</li>`;
+            });
+            output += '</ul>';
+            document.getElementById('loopOutput').innerHTML = output;
+        }
+        
+        // Part 4: DOM Manipulation
+        function changeText() {
+            document.getElementById('demoText').textContent = 'The text has been changed using JavaScript!';
+        }
+        
+        function toggleHighlight() {
+            document.getElementById('demoDiv').classList.toggle('highlight');
+        }
+        
+        function addNewElement() {
+            let newElement = document.createElement('p');
+            newElement.textContent = 'This is a new element created with JavaScript!';
+            document.getElementById('newElements').appendChild(newElement);
+        }
+        
+        // Add highlight style dynamically
+        let style = document.createElement('style');
+        style.textContent = '.highlight { background-color: #ffffcc; padding: 5px; border-radius: 3px; }';
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
